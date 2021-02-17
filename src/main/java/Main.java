@@ -7,8 +7,8 @@ public class Main {
         System.out.print("Input a number n: ");
         int n = in.nextInt();
         Program program = new Program();
+        int[][] arrays = program.getArrays(n);
 
-        System.out.printf("Your number: %d \n", n);
         in.close();
     }
 }
