@@ -12,6 +12,7 @@ public class Program {
     public int[][] getArrays(int n) {
         arrayOfArrays = new int[n][];
         lengthOfArrays = new ArrayList<Integer>();
+        boolean isEven;
         for (int i = 1; i <= n; i++) {
             lengthOfArrays.add(i);
         }
@@ -21,48 +22,14 @@ public class Program {
             lengthOfArrays.remove(index);
             int size = lengthOfArrays.size();
             int[] newArray= this.createArray(length);
-            if(i % 2 == 0) {
-                newArray = this.sortAscending(newArray);
+            isEven = true;
+            if(i % 2 != 0) {
+                isEven = false;
             }
-            else{
-                newArray = this.sortDescending(newArray);
-            }
+            this.sort(newArray, isEven);
             arrayOfArrays[i-1] = newArray;
         }
         return (arrayOfArrays);
-    }
-
-    public int[] sortAscending(int[] array) {
-        boolean isSorted = true;
-        int middle;
-        while(isSorted) {
-            isSorted = false;
-            for(int index = 0; index < array.length - 1; index++) {
-               if(array[index] > array[index + 1]) {
-                   middle = array[index];
-                   array[index] = array[index + 1];
-                   array[index + 1] = middle;
-                   isSorted = true;
-               }
-           }
-        }
-        return(array);
-    }
-    public int[] sortDescending(int[] array) {
-        boolean isSorted = true;
-        int middle;
-        while(isSorted) {
-            isSorted = false;
-            for(int index = 0; index < array.length - 1; index++) {
-                if(array[index] < array[index + 1]) {
-                    middle = array[index];
-                    array[index] = array[index + 1];
-                    array[index + 1] = middle;
-                    isSorted = true;
-                }
-            }
-        }
-        return(array);
     }
 
     public int[] createArray(int length) {
@@ -71,5 +38,27 @@ public class Program {
             newArray[index] = random.nextInt();
         }
         return(newArray);
+    }
+    public int[] sort(int[] array, boolean isEven) {
+        boolean isSorted = true;
+        int middle;
+        while(isSorted) {
+            isSorted = false;
+            for(int index = 0; index < array.length - 1; index++) {
+                if(array[index] < array[index + 1] & !isEven) {
+                    middle = array[index];
+                    array[index] = array[index + 1];
+                    array[index + 1] = middle;
+                    isSorted = true;
+                }
+                if(array[index] > array[index + 1] & isEven) {
+                    middle = array[index];
+                    array[index] = array[index + 1];
+                    array[index + 1] = middle;
+                    isSorted = true;
+                }
+            }
+        }
+        return(array);
     }
 }
