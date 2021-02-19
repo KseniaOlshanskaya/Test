@@ -1,41 +1,43 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Program {
-    public static int[][] arrayOfArrays;
-    public static ArrayList<Integer> lengthOfArrays;
-    public static Random random = new Random();
+public class RandomArrayGenerator {
+    private Random random;
 
-    Program() {
+    RandomArrayGenerator() {
     }
 
     public int[][] getArrays(int n) {
-        arrayOfArrays = new int[n][];
-        lengthOfArrays = new ArrayList<Integer>();
+        int[][] arrayOfArrays = new int[n][];
+        ArrayList<Integer> lengthsOfArrays = new ArrayList<Integer>();
+        random = new Random();
         boolean isEven;
-        for (int i = 1; i <= n; i++) {
-            lengthOfArrays.add(i);
+
+        // Ограничение на длины массивов создано сознательно,
+        // чтобы избежать чрезмерно длительное время работы программы
+        for (int length = 1; length <= n; length++) {
+            lengthsOfArrays.add(length);
         }
-        for (int i = 1; i < n; i++) {
-            int index = random.nextInt(lengthOfArrays.size() - 1);
-            int length = lengthOfArrays.get(index);
-            lengthOfArrays.remove(index);
-            int size = lengthOfArrays.size();
+        for (int i = 1; i <= n; i++) {
+            int index = random.nextInt(lengthsOfArrays.size());
+            int length = lengthsOfArrays.get(index);
+            lengthsOfArrays.remove(index);
             int[] newArray= this.createArray(length);
             isEven = true;
             if(i % 2 != 0) {
                 isEven = false;
             }
-            this.sort(newArray, isEven);
+            newArray = this.sort(newArray, isEven);
             arrayOfArrays[i-1] = newArray;
         }
+
         return (arrayOfArrays);
     }
 
     public int[] createArray(int length) {
         int[] newArray = new int[length];
         for (int index = 0; index != newArray.length; index++) {
-            newArray[index] = random.nextInt();
+            newArray[index] = random.nextInt(100);
         }
         return(newArray);
     }
